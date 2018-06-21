@@ -1,0 +1,27 @@
+发现用idea导入新工程或者工程刷新后，language level总是变成jdk1.5。
+
+很多overwrite的错误，手工改成1.6报错信息就消失了。
+
+再次点击maven projects中的刷新按钮或者做compile操作，languagelevel又会变成jdk5.
+
+后来根据网上资料在pom.xml中增加如下内容就好了，如果已经存在build属性，则在现有的build属性的plugins增加plugin属性即可。
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId> 
+            <version>3.1</version>
+            <configuration>
+                <source>1.6</source>
+                <target>1.6</target>
+                <encoding>UTF-8</encoding>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
+
+
+原来在idea中Maven项目默认的LanguageLevel是1.5，maven项目发生任何变化，这个值都会被idea重置成1.5
+
+只有通过maven-compiler-plugin强制限制编辑器的类型才可以
