@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d3eab1fc-b57a-4b62-a184-2ce3c70df386" name="Default" comment="" />
+    <list default="true" id="d3eab1fc-b57a-4b62-a184-2ce3c70df386" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/lucene/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -12,7 +15,13 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -61,6 +70,7 @@
         <option value="$PROJECT_DIR$/lucene/src/main/resources/number_stopwords.dic" />
         <option value="$PROJECT_DIR$/lucene/src/main/resources/IKAnalyzer.cfg.xml" />
         <option value="$PROJECT_DIR$/lucene/src/main/resources/news.txt" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -145,10 +155,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dreamer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
@@ -300,7 +306,7 @@
       <option name="presentableId" value="Default" />
       <updated>1529566332304</updated>
       <workItem from="1529566335654" duration="3133000" />
-      <workItem from="1529572664119" duration="12270000" />
+      <workItem from="1529572664119" duration="12704000" />
     </task>
     <servers />
   </component>
@@ -316,10 +322,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15403000" />
+    <option name="totallyTimeSpent" value="15837000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="753" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="7" />
@@ -332,7 +339,7 @@
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.48298216" />
       <window_info anchor="bottom" id="Run" order="3" weight="0.42949757" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.43435982" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.102106966" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="3" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25340393" />
@@ -629,6 +636,9 @@
           <caret line="586768" column="4" lean-forward="true" selection-start-line="586768" selection-start-column="4" selection-end-line="586768" selection-end-column="4" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
   <component name="masterDetails">
