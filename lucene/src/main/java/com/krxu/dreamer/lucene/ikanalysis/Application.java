@@ -31,9 +31,12 @@ public class Application {
 
         Path path = Paths.get("indexdir");
         List<Map.Entry<String, Integer>> list = TextAnalyzer.getWordsRate(result.toString(), path);
-
         for (int i = 0; i < 10; i++) {
-            System.out.println(list.get(i).getKey() + ":" + list.get(i).getValue());
+            if (i < list.size()) {
+                System.out.println(list.get(i).getKey() + ":" + list.get(i).getValue());
+            }
+
         }
     }
+
 }

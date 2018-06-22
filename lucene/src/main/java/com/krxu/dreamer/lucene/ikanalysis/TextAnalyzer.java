@@ -12,6 +12,8 @@ import org.apache.lucene.util.BytesRef;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author xukuairan
@@ -24,9 +26,6 @@ public class TextAnalyzer {
      * 分析器
      */
     private static Analyzer smcAnalyzer;
-
-    private static IndexWriterConfig indexWriterConfig;
-
 
     /**
      * 新建FieldType,用于指定字段索引时的信息
@@ -41,9 +40,6 @@ public class TextAnalyzer {
                 return new Analyzer.TokenStreamComponents(it);
             }
         };
-
-        indexWriterConfig = new IndexWriterConfig(smcAnalyzer);
-        indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
 
         type = new FieldType();
         // 索引时保存文档、词项频率、位置信息、偏移信息
@@ -64,9 +60,13 @@ public class TextAnalyzer {
      * @throws IOException
      */
     private static void indexDocs(String text, Path path) throws IOException {
+        text = delHTMLTag(text);
+
         // 索引的存储路径
         Directory directory = FSDirectory.open(path);
 
+        IndexWriterConfig indexWriterConfig = new IndexWriterConfig(smcAnalyzer);
+        indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
         // 索引的增删改由indexWriter创建
         IndexWriter indexWriter = new IndexWriter(directory, indexWriterConfig);
 
@@ -82,6 +82,8 @@ public class TextAnalyzer {
     /**
      * 生成词汇频率
      *
+     * @param text
+     * @param path
      * @return
      * @throws IOException
      */
@@ -102,8 +104,9 @@ public class TextAnalyzer {
             // 词项
             String termText = thisTerm.utf8ToString();
 
-            //单字过滤 utf-8编码格式单字占3字节
-            if (null != termText && termText.getBytes().length == 3){
+            //单字过滤 utf-8编码格式单字占3字节,单个英文字母1字节
+            if (null != termText && (termText.getBytes().length == 3
+                    || termText.getBytes().length == 1)){
                 continue;
             }
             // 通过totalTermFreq()方法获取词项频率
@@ -118,5 +121,35 @@ public class TextAnalyzer {
             }
         });
         return sortedMap;
+    }
+
+    /**
+     * 去除html标签
+     *
+     * @param htmlStr
+     * @return
+     */
+    public static String delHTMLTag(String htmlStr) {
+        String regEx_zhushi = "<!--[\\w\\W\r\\n]*?-->";
+        String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>";
+        String regEx_style = "<style[^>]*?>[\\s\\S]*?<\\/style>";
+        String regEx_title = "<title[^>]*?>[\\s\\S]*?<\\/title>";
+        String regEx_html = "<[^>]+>";
+        Pattern p_zhushi = Pattern.compile(regEx_zhushi, 2);
+        Matcher m_zhushi = p_zhushi.matcher(htmlStr);
+        htmlStr = m_zhushi.replaceAll("");
+        Pattern p_script = Pattern.compile(regEx_script, 2);
+        Matcher m_script = p_script.matcher(htmlStr);
+        htmlStr = m_script.replaceAll("");
+        Pattern p_style = Pattern.compile(regEx_style, 2);
+        Matcher m_style = p_style.matcher(htmlStr);
+        htmlStr = m_style.replaceAll("");
+        Pattern p_title = Pattern.compile(regEx_title, 2);
+        Matcher m_title = p_title.matcher(htmlStr);
+        htmlStr = m_title.replaceAll("");
+        Pattern p_html = Pattern.compile(regEx_html, 2);
+        Matcher m_html = p_html.matcher(htmlStr);
+        htmlStr = m_html.replaceAll("");
+        return htmlStr.trim();
     }
 }
