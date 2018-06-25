@@ -26,14 +26,13 @@ public class Test {
         showTopN(results2, 3);
         List<Map.Entry<String, Integer>> results3 = WordStatistics.getWordFrequency(getContent(path2), com.krxu.dreamer.textanalysis.WordStatistics.wordLabel);
         long c = System.currentTimeMillis();
-        System.out.println((b - a) + " ... " + (c-b));
+        System.out.println((b - a) + " ... " + (c - b));
 
 
-        while (true){
+        while (true) {
             Thread.sleep(1000);
         }
     }
-
 
     public static void showTopN(List<Map.Entry<String, Integer>> results, int N) {
         for (int i = 0; i < N && i < results.size(); i++) {

@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * @author xukuairan
@@ -16,7 +17,15 @@ import java.util.Map;
  */
 public class Application {
     public static void main(String[] args) throws IOException {
-        File newsFile = new File("D:\\workspace\\idea\\dreamer\\lucene\\src\\main\\resources\\news.txt");
+        File newsFile1 = new File("D:\\workspace\\idea\\dreamer\\lucene\\src\\main\\resources\\news.txt");
+        File newsFile2 = new File("D:\\workspace\\idea\\dreamer\\lucene\\src\\main\\resources\\news2.txt");
+        File newsFile = null;
+        if(new Random().nextInt(100) < 50){
+            newsFile = newsFile1;
+        }else{
+            newsFile = newsFile2;
+        }
+        System.out.println("file is :" + newsFile.getName());
         StringBuilder result = new StringBuilder();
         try {
             BufferedReader br = new BufferedReader(new FileReader(newsFile));
