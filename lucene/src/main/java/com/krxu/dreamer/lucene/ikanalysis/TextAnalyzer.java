@@ -25,7 +25,7 @@ public class TextAnalyzer {
     /**
      * 分析器
      */
-    private static Analyzer smcAnalyzer;
+    private static Analyzer analyzer;
 
     /**
      * 新建FieldType,用于指定字段索引时的信息
@@ -33,10 +33,10 @@ public class TextAnalyzer {
     private  static FieldType type;
 
     static{
-        smcAnalyzer = new Analyzer() {
+        analyzer = new Analyzer() {
             @Override
             protected TokenStreamComponents createComponents(String s) {
-                IKTokenizer it = new IKTokenizer(true);
+                IKTokenizer it = new IKTokenizer(false);
                 return new Analyzer.TokenStreamComponents(it);
             }
         };
@@ -65,7 +65,7 @@ public class TextAnalyzer {
         // 索引的存储路径
         Directory directory = FSDirectory.open(path);
 
-        IndexWriterConfig indexWriterConfig = new IndexWriterConfig(smcAnalyzer);
+        IndexWriterConfig indexWriterConfig = new IndexWriterConfig(analyzer);
         indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
         // 索引的增删改由indexWriter创建
         IndexWriter indexWriter = new IndexWriter(directory, indexWriterConfig);

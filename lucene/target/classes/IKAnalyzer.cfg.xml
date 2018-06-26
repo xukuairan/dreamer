@@ -2,8 +2,6 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <comment>IK Analyzer 扩展配置</comment>
-    <!--用户可以在这里配置自己的扩展字典 <entry key="ext_dict">ext.dic;</entry>如果有多个扩展词典，那么以分号分隔即可，如下面的两个扩展停止词字典 -->
-    <!--用户可以在这里配置自己的扩展停止词字典 -->
-    <entry key="ext_dict">chinese_word.dic</entry>
-    <entry key="ext_stopwords">number_stopwords.dic;stopword.dic;chinese_stopwords.dic;sichuan_university_stopwords.dic</entry>
+    <!--<entry key="ext_dict"></entry>-->
+    <entry key="ext_stopwords">test.dic;number_stopwords.dic;stopword.dic;chinese_stopwords.dic;sichuan_university_stopwords.dic</entry>
 </properties>

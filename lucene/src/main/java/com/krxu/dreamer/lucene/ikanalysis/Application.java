@@ -17,15 +17,52 @@ import java.util.Random;
  */
 public class Application {
     public static void main(String[] args) throws IOException {
-        File newsFile1 = new File("D:\\workspace\\idea\\dreamer\\lucene\\src\\main\\resources\\news.txt");
-        File newsFile2 = new File("D:\\workspace\\idea\\dreamer\\lucene\\src\\main\\resources\\news2.txt");
-        File newsFile = null;
-        if(new Random().nextInt(100) < 50){
-            newsFile = newsFile1;
-        }else{
-            newsFile = newsFile2;
+        String headerPath = "D:\\workspace\\idea\\dreamer\\lucene\\src\\main\\resources\\NewsHeader.txt";
+        String contentPath = "D:\\workspace\\idea\\dreamer\\lucene\\src\\main\\resources\\NewsContent.txt";
+
+        Path path = Paths.get("D:\\workspace\\idea\\dreamer\\lucene\\indexDir");
+
+        System.out.println("###################header##############3");
+        List<Map.Entry<String, Integer>> list = TextAnalyzer.getWordsRate(getContent(headerPath), path);
+        for (int i = 0; i < 10; i++) {
+            if (i < list.size()) {
+                System.out.println(list.get(i).getKey() + ":" + list.get(i).getValue());
+            }
         }
-        System.out.println("file is :" + newsFile.getName());
+        System.out.println("###################content##############3");
+        List<Map.Entry<String, Integer>> list2 = TextAnalyzer.getWordsRate(getContent(contentPath), path);
+        for (int i = 0; i < 10; i++) {
+            if (i < list.size()) {
+                System.out.println(list2.get(i).getKey() + ":" + list2.get(i).getValue());
+            }
+        }
+
+//        String content = getContent(contentPath);
+//        for(int i = 0 ;i < 10000; i ++){
+//            System.out.println("#####################times " + i);
+//            long start = System.currentTimeMillis();
+//            List<Map.Entry<String, Integer>> list3 = TextAnalyzer.getWordsRate(content, path);
+//            long end = System.currentTimeMillis();
+//            for (int j = 0; j < 3; j++) {
+//                if (j < list.size()) {
+//                    System.out.println(list3.get(j).getKey() + ":" + list3.get(j).getValue());
+//                }
+//            }
+//            System.out.println("total:" + (end - start) + "ms");
+//        }
+    }
+
+
+
+
+    /**
+     * 文件解析成文本字符串
+     *
+     * @param filePath
+     * @return
+     */
+    private static String getContent(String filePath) {
+        File newsFile = new File(filePath);
         StringBuilder result = new StringBuilder();
         try {
             BufferedReader br = new BufferedReader(new FileReader(newsFile));
@@ -37,15 +74,7 @@ public class Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        Path path = Paths.get("indexdir");
-        List<Map.Entry<String, Integer>> list = TextAnalyzer.getWordsRate(result.toString(), path);
-        for (int i = 0; i < 10; i++) {
-            if (i < list.size()) {
-                System.out.println(list.get(i).getKey() + ":" + list.get(i).getValue());
-            }
-
-        }
+        return result.toString();
     }
 
 }

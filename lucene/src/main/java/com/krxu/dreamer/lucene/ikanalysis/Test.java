@@ -16,11 +16,11 @@ import java.util.Map;
 public class Test {
 
     public static void main(String[] args) throws InterruptedException {
-        String path = "D:\\workspace\\idea\\dreamer\\lucene\\src\\main\\resources\\news.txt";
+        String path = "D:\\workspace\\idea\\dreamer\\lucene\\src\\main\\resources\\NewsContent.txt";
         List<Map.Entry<String, Integer>> results = WordStatistics.getWordFrequency(getContent(path), com.krxu.dreamer.textanalysis.WordStatistics.wordLabel);
         showTopN(results, 3);
         long a = System.currentTimeMillis();
-        String path2 = "D:\\workspace\\idea\\dreamer\\lucene\\src\\main\\resources\\news2.txt";
+        String path2 = "D:\\workspace\\idea\\dreamer\\lucene\\src\\main\\resources\\NewsHeader.txt";
         List<Map.Entry<String, Integer>> results2 = WordStatistics.getWordFrequency(getContent(path2), com.krxu.dreamer.textanalysis.WordStatistics.wordLabel);
         long b = System.currentTimeMillis();
         showTopN(results2, 3);
