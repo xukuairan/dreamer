@@ -14,7 +14,7 @@ import java.util.*;
 public class Application {
 
     public static void main(String[] args) throws IOException {
-        String contentPath = "D:\\workspace\\idea\\dreamer\\lucene\\src\\main\\resources\\NewsContent.txt";
+        String contentPath = "NewsContent.txt";
         String text = getContent(contentPath);
 
         List<Map.Entry<String, Integer>> result = segString(text);
@@ -67,14 +67,14 @@ public class Application {
     /**
      * 文件解析成文本字符串
      *
-     * @param filePath
+     * @param path
      * @return
      */
-    private static String getContent(String filePath) {
-        File newsFile = new File(filePath);
+    private static String getContent(String path) {
+        InputStream is = Application.class.getClassLoader().getResourceAsStream(path);
         StringBuilder result = new StringBuilder();
         try {
-            BufferedReader br = new BufferedReader(new FileReader(newsFile));
+            BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"), 512);
             String str;
             while ((str = br.readLine()) != null) {
                 result.append(System.lineSeparator() + str);
