@@ -1,7 +1,7 @@
 package com.krxu.dreamer.ikanalyzer;
 
-import org.wltea.analyzer.core.IKSegmenter;
-import org.wltea.analyzer.core.Lexeme;
+import com.krxu.dreamer.ikanalyzer.doc.core.IKSegmenter;
+import com.krxu.dreamer.ikanalyzer.doc.core.Lexeme;
 
 import java.io.*;
 import java.util.*;
@@ -17,19 +17,34 @@ public class Application {
         String contentPath = "D:\\workspace\\idea\\dreamer\\lucene\\src\\main\\resources\\NewsContent.txt";
         String text = getContent(contentPath);
 
-        System.out.println(segString(text));
+        List<Map.Entry<String, Integer>> result = segString(text);
+
+        System.out.println(result);
+        System.out.println(result.size());
     }
 
     private static List<Map.Entry<String, Integer>> segString(String content) {
         // 分词
         Reader input = new StringReader(content);
-        // 智能分词关闭（对分词的精度影响很大）
+
+        // 智能分词开启
         IKSegmenter iks = new IKSegmenter(input, true);
-        Lexeme lexeme = null;
-        Map<String, Integer> words = new HashMap<String, Integer>();
+        Lexeme lexeme;
+        Map<String, Integer> words = new HashMap<>();
         try {
             while ((lexeme = iks.next()) != null) {
-                if (words.containsKey(lexeme.getLexemeText())) {
+                //只要中文词元
+                if(Lexeme.TYPE_CNWORD != lexeme.getLexemeType()){
+                    continue;
+                }
+                String word = lexeme.getLexemeText();
+
+                //单个去除
+                if(word.getBytes().length == 3){
+                    continue;
+                }
+
+                if (words.containsKey(word)) {
                     words.put(lexeme.getLexemeText(), words.get(lexeme.getLexemeText()) + 1);
                 } else {
                     words.put(lexeme.getLexemeText(), 1);
