@@ -1,10 +1,13 @@
 package com.krxu.dreamer.ikanalyzer;
 
+import com.krxu.dreamer.ikanalyzer.doc.cfg.Configuration;
+import com.krxu.dreamer.ikanalyzer.doc.cfg.DefaultConfig;
 import com.krxu.dreamer.ikanalyzer.doc.core.IKSegmenter;
 import com.krxu.dreamer.ikanalyzer.doc.core.Lexeme;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author xukuairan
@@ -12,6 +15,18 @@ import java.util.*;
  * @dete ${date}
  */
 public class Application {
+
+    private static List<String> list ;
+
+    static Configuration cfg;
+
+    static{
+        list = new CopyOnWriteArrayList<>();
+        list.add("大部分都在中国");
+        list.add("光棍节阿");
+        list.add("阿里巴");
+        cfg = new DefaultConfig(true, list);
+    }
 
     public static void main(String[] args) throws IOException {
         String contentPath = "D:\\workspace\\idea\\dreamer\\lucene\\src\\main\\resources\\NewsContent.txt";
@@ -28,7 +43,7 @@ public class Application {
         Reader input = new StringReader(content);
 
         // 智能分词开启
-        IKSegmenter iks = new IKSegmenter(input, true);
+        IKSegmenter iks = new IKSegmenter(input, cfg);
         Lexeme lexeme;
         Map<String, Integer> words = new HashMap<>();
         try {
