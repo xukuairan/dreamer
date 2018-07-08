@@ -12,12 +12,8 @@ import java.math.RoundingMode;
 public class Application {
 
     public static void main(String[] args) {
-        int count = 2;
-        int allCount = 11;
-        BigDecimal a = new BigDecimal(count);
-        BigDecimal b = new BigDecimal(allCount);
-        BigDecimal c = a.divide(b, 4, RoundingMode.HALF_UP);
-        System.out.println(c.toString());
+        String str = "你好c";
+        System.out.println(str.length());
     }
 }
 
