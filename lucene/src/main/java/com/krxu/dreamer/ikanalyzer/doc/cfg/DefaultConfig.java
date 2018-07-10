@@ -52,6 +52,14 @@ public class DefaultConfig implements Configuration {
 
   private List<String> mainDicWords ;
 
+  public DefaultConfig() {
+  }
+
+  public DefaultConfig(boolean useSmart, List<String> mainDicWords) {
+    this.useSmart = useSmart;
+    this.mainDicWords = mainDicWords;
+  }
+
   /**
    * 返回单例
    * @return Configuration单例
@@ -72,10 +80,7 @@ public class DefaultConfig implements Configuration {
 
   @Override
   public List<String> getMainDictionary() {
-    List<String> list = new CopyOnWriteArrayList<>();
-    list.add("大部分都在中国");
-    list.add("光棍节阿");
-    return list;
+    return mainDicWords;
   }
 
   @Override
