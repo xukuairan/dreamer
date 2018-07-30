@@ -1,12 +1,21 @@
 package com.krxu.dreamer.redis;
 
+import org.apache.log4j.Logger;
 import redis.clients.jedis.*;
 import redis.clients.jedis.exceptions.JedisDataException;
 import redis.clients.util.Pool;
 
 import java.util.*;
 
+/**
+ * @author xukuairan
+ * @version [版本号]
+ * @date 2018-07-28
+ * @description [添加描述]
+ */
 public class RedisConnectFactory {
+
+    private static final Logger logger = Logger.getLogger(RedisConnectFactory.class);
 
     private String connectUrls;
 
@@ -20,6 +29,9 @@ public class RedisConnectFactory {
      * spring 初始化
      */
     public void init() {
+        if(null == connectUrls || connectUrls.trim().length() == 0){
+            throw new RuntimeException("jedis connection url is empty");
+        }
         String[] connectUrlArray = connectUrls.split(",");
         int sentinelCount = 0;
         int clusterCount = 0;
@@ -81,6 +93,16 @@ public class RedisConnectFactory {
             this.pool.returnResource(shardedJedis);
         } catch (Throwable var3) {
             this.pool.returnBrokenResource(shardedJedis);
+        }
+    }
+
+    /**
+     * 销毁集群连接池
+     */
+    public void destroyPool() {
+        if (null != this.pool) {
+            this.pool.destroy();
+            this.pool = null;
         }
     }
 
