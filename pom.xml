@@ -11,6 +11,7 @@
     <modules>
         <module>lucene</module>
         <module>basic</module>
+        <module>redis</module>
     </modules>
 
     <dependencies>
