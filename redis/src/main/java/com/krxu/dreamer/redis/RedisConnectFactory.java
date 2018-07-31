@@ -29,7 +29,7 @@ public class RedisConnectFactory {
      * spring 初始化
      */
     public void init() {
-        if(null == connectUrls || connectUrls.trim().length() == 0){
+        if (null == connectUrls || connectUrls.trim().length() == 0) {
             throw new RuntimeException("jedis connection url is empty");
         }
         String[] connectUrlArray = connectUrls.split(",");
@@ -54,13 +54,14 @@ public class RedisConnectFactory {
                 jedis.close();
             }
         }
-        if (sentinelCount != connectUrlArray.length || clusterCount != connectUrlArray.length) {
+        if (sentinelCount > 0 && sentinelCount != connectUrlArray.length
+                || clusterCount > 0 && clusterCount != connectUrlArray.length) {
             throw new RuntimeException("redis配置错误");
         }
         //哨兵模式 或 集群模式
         if (sentinelCount > 0) {
             Set<String> sentinels = new HashSet(Arrays.asList(connectUrls.split(",")));
-            pool = new ShardedJedisSentinelPool( parseMasters(sentinels), sentinels ,config,password);
+            pool = new ShardedJedisSentinelPool(parseMasters(sentinels), sentinels, config, password);
         } else {
             List<JedisShardInfo> shards = new ArrayList<>();
             for (String connectUrl : connectUrlArray) {
@@ -78,7 +79,7 @@ public class RedisConnectFactory {
      *
      * @return
      */
-    public ShardedJedis getShardedJedis(){
+    public ShardedJedis getShardedJedis() {
         ShardedJedis jedis = pool.getResource();
         return jedis;
     }

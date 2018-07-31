@@ -69,34 +69,34 @@
         </dependency>
 
         <!--huanwei-->
-        <dependency>
-            <groupId>com.huawei.jaguar</groupId>
-            <artifactId>commons.data-integrate</artifactId>
-            <version>V500R005C10B030</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.huawei.jaguar</groupId>-->
+            <!--<artifactId>commons.data-integrate</artifactId>-->
+            <!--<version>V500R005C10B030</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>com.huawei.jaguar</groupId>
-            <artifactId>commons.jedis</artifactId>
-            <version>V500R005C10B030</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.huawei.jaguar</groupId>-->
+            <!--<artifactId>commons.jedis</artifactId>-->
+            <!--<version>V500R005C10B030</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>com.huawei.jaguar</groupId>
-            <artifactId>commons.sdk.data-integrate.impl</artifactId>
-            <version>V500R005C10B030</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.huawei.jaguar</groupId>-->
+            <!--<artifactId>commons.sdk.data-integrate.impl</artifactId>-->
+            <!--<version>V500R005C10B030</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>com.huawei.jaguar</groupId>
-            <artifactId>commons.sdk.data-integrate</artifactId>
-            <version>V500R005C10B030</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.huawei.jaguar</groupId>-->
+            <!--<artifactId>commons.sdk.data-integrate</artifactId>-->
+            <!--<version>V500R005C10B030</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>com.huawei.jaguar</groupId>
-            <artifactId>commons.sdk.utils</artifactId>
-            <version>V500R005C10B030</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.huawei.jaguar</groupId>-->
+            <!--<artifactId>commons.sdk.utils</artifactId>-->
+            <!--<version>V500R005C10B030</version>-->
+        <!--</dependency>-->
     </dependencies>
 </project>
