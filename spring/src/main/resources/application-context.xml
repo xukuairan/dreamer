@@ -3,16 +3,24 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:redis.properties</value>
+            </list>
+        </property>
+    </bean>
+
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxTotal" value="300"/>
-        <property name="maxIdle" value="200"/>
-        <property name="maxWaitMillis" value="3000"/>
-        <property name="testOnBorrow" value="true"/>
+        <property name="maxTotal" value="${redis_maxTotal}"/>
+        <property name="maxIdle" value="${redis_maxIdle}"/>
+        <property name="maxWaitMillis" value="${redis_maxWaitMillis}"/>
+        <property name="testOnBorrow" value="${redis_testOnBorrow}"/>
     </bean>
 
     <bean id="redisConnectFactory" class="com.krxu.dreamer.redis.RedisConnectFactory" init-method="init">
         <property name="config" ref="jedisPoolConfig"/>
-        <property name="connectUrls" value="10.211.93.169:16379,10.211.93.169:16380,10.211.93.169:16381"/>
+        <property name="connectUrls" value="${redis_connect_urls}"/>
     </bean>
 
     <bean id="redisCacheManager" class="com.krxu.dreamer.redis.manager.impl.RedisCacheManagerImpl">

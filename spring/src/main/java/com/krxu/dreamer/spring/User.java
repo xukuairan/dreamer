@@ -7,14 +7,6 @@ package com.krxu.dreamer.spring;
  * @description [添加描述]
  */
 public class User {
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
-
     private Integer id;
     private String name;
 
@@ -32,5 +24,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
