@@ -12,7 +12,7 @@
 
     <bean id="redisConnectFactory" class="com.krxu.dreamer.redis.RedisConnectFactory" init-method="init">
         <property name="config" ref="jedisPoolConfig"/>
-        <property name="connectUrls" value="10.211.93.167:6379"/>
+        <property name="connectUrls" value="10.211.93.169:16379,10.211.93.169:16380,10.211.93.169:16381"/>
     </bean>
 
     <bean id="redisCacheManager" class="com.krxu.dreamer.redis.manager.impl.RedisCacheManagerImpl">

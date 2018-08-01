@@ -1,6 +1,7 @@
 package com.krxu.dreamer.basic;
 
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author xukuairan
@@ -10,43 +11,38 @@ import java.util.*;
  */
 public class Application {
 
-    public static void main(String[] args) {
-        int[] result = mathAbs(0, 15,14);
+    private static CountDownLatch countDownLatch = new CountDownLatch(1);
 
-        for(int i: result){
-            System.out.println(i);
-        }
-    }
+    public static void main(String[] args) throws InterruptedException {
 
-    /**
-     * 随机数
-     *
-     * @param min 随机的最小值
-     * @param max 随机的最大值
-     * @param n   随机数个数
-     * @return
-     */
-    public static int[] mathAbs(int min, int max, int n) {
-        int len = max - min + 1;
+        new Thread(){
+            @Override
+            public void run() {
+                countDownLatch.countDown();
+                System.out.println(Thread.currentThread().getName() + countDownLatch.getCount() );
+            }
+        }.start();
 
-        //初始化给定范围的待选数组
-        int[] source = new int[len];
-        for (int i = min; i < min + len; i++) {
-            source[i - min] = i;
-        }
+        Thread.sleep(1000);
+        System.out.println(Thread.currentThread().getName() + countDownLatch.getCount() );
 
-        int[] result = new int[n];
-        Random rd = new Random();
-        int index = 0;
-        for (int i = 0; i < result.length; i++) {
-            //待选数组0到(len-2)随机一个下标
-            index = Math.abs(rd.nextInt() % len--);
-            //将随机到的数放入结果集
-            result[i] = source[index];
-            //将待选数组中被随机到的数，用待选数组(len-1)下标对应的数替换
-            source[index] = source[len];
-        }
-        return result;
+        countDownLatch.await();
+
+        System.out.println("xxxxxx");
+
+
+        Thread.sleep(1000);
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    countDownLatch.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(Thread.currentThread().getName() + countDownLatch.getCount() );
+            }
+        }.start();
     }
 
 }
