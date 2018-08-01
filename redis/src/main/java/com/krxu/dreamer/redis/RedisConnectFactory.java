@@ -50,6 +50,8 @@ public class RedisConnectFactory {
                 } else {
                     clusterCount++;
                 }
+            }catch(Exception ex){
+                throw new RuntimeException("init jedis error: " + connectUrl , ex);
             } finally {
                 jedis.close();
             }
