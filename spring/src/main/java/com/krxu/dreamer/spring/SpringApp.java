@@ -1,9 +1,6 @@
 package com.krxu.dreamer.spring;
 
-import com.krxu.dreamer.redis.manager.RedisCacheManager;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.UUID;
 
 /**
  * @author xukuairan
@@ -11,13 +8,13 @@ import java.util.UUID;
  * @date ${date}
  * @description [添加描述]
  */
-public class Application {
+public class SpringApp {
 
     public static void main(String[] args) {
         System.out.println(">>>>>>>>>>>>>>>>  application start");
         ClassPathXmlApplicationContext context = null;
         try {
-            context = new ClassPathXmlApplicationContext("classpath:application-context.xml");
+            context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
