@@ -25,20 +25,28 @@ public class Application {
             System.out.println(">>>>>>>>>>>>>>>>  application start success");
         } else {
             System.out.println(">>>>>>>>>>>>>>>>  application start failed");
+            System.exit(10086);
         }
 
-        RedisCacheManager redisCacheManager = (RedisCacheManager) context.getBean("redisCacheManager");
+        BeanTest t = (BeanTest) context.getBean("beanTest");
+        t.print();
 
-        User user = new User();
-        user.setId(924);
-        user.setName("xukuairan");
-        redisCacheManager.set("1:2:3", user, 120);
+        System.out.println(System.getProperty("LAJIWANGDA"));
 
-        long s = System.currentTimeMillis();
-        for(int i = 0 ; i < 100 ; i++){
-            redisCacheManager.set("1:" + UUID.randomUUID().toString(), user,50);
-        }
+//        RedisCacheManager redisCacheManager = (RedisCacheManager) context.getBean("redisCacheManager");
+//
+//        User user = new User();
+//        user.setId(924);
+//        user.setName("xukuairan");
+//        redisCacheManager.set("1:2:3", user, 120);
+//
+//        long s = System.currentTimeMillis();
+//        for(int i = 0 ; i < 100 ; i++){
+//            redisCacheManager.set("1:" + UUID.randomUUID().toString(), user,50);
+//        }
+//
+//        System.out.println(System.currentTimeMillis() - s);
 
-        System.out.println(System.currentTimeMillis() - s);
+
     }
 }

@@ -1,7 +1,6 @@
 package com.krxu.dreamer.basic;
 
-import java.util.*;
-import java.util.concurrent.CountDownLatch;
+import org.json.JSONObject;
 
 /**
  * @author xukuairan
@@ -11,38 +10,15 @@ import java.util.concurrent.CountDownLatch;
  */
 public class Application {
 
-    private static CountDownLatch countDownLatch = new CountDownLatch(1);
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
 
-        new Thread(){
-            @Override
-            public void run() {
-                countDownLatch.countDown();
-                System.out.println(Thread.currentThread().getName() + countDownLatch.getCount() );
-            }
-        }.start();
+        String tokenCheckResult = "{\"body\":{},\"header\":{\"resultcode\":99999}}";
 
-        Thread.sleep(1000);
-        System.out.println(Thread.currentThread().getName() + countDownLatch.getCount() );
+        JSONObject jsonObject = new JSONObject(tokenCheckResult);
+        int resultCode = jsonObject.getJSONObject("header").getInt("resultcode");
 
-        countDownLatch.await();
-
-        System.out.println("xxxxxx");
-
-
-        Thread.sleep(1000);
-        new Thread(){
-            @Override
-            public void run() {
-                try {
-                    countDownLatch.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.out.println(Thread.currentThread().getName() + countDownLatch.getCount() );
-            }
-        }.start();
+        System.out.println(resultCode);
     }
 
 }
