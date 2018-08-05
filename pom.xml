@@ -13,6 +13,7 @@
         <module>basic</module>
         <module>redis</module>
         <module>spring</module>
+        <module>netty</module>
     </modules>
 
     <dependencies>
