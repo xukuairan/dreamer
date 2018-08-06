@@ -43,6 +43,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.huawei.iread</groupId>
             <artifactId>server-domain-api</artifactId>
             <version>2017-01-22</version>
