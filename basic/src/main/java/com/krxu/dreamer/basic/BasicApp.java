@@ -8,7 +8,7 @@ import org.json.JSONObject;
  * @description 添加类描述
  * @date %date%
  */
-public class Application {
+public class BasicApp {
 
 
     public static void main(String[] args){
