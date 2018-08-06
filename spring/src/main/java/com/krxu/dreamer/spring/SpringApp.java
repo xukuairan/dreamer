@@ -1,6 +1,9 @@
 package com.krxu.dreamer.spring;
 
+import com.krxu.dreamer.redis.manager.RedisCacheManager;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.UUID;
 
 /**
  * @author xukuairan
@@ -25,24 +28,19 @@ public class SpringApp {
             System.exit(10086);
         }
 
-        BeanTest t = (BeanTest) context.getBean("beanTest");
-        t.print();
+        RedisCacheManager redisCacheManager = (RedisCacheManager) context.getBean("redisCacheManager");
 
-        System.out.println(System.getProperty("LAJIWANGDA"));
+        User user = new User();
+        user.setId(924);
+        user.setName("xukuairan");
+        redisCacheManager.set("1:2:3", user, 120);
 
-//        RedisCacheManager redisCacheManager = (RedisCacheManager) context.getBean("redisCacheManager");
-//
-//        User user = new User();
-//        user.setId(924);
-//        user.setName("xukuairan");
-//        redisCacheManager.set("1:2:3", user, 120);
-//
-//        long s = System.currentTimeMillis();
-//        for(int i = 0 ; i < 100 ; i++){
-//            redisCacheManager.set("1:" + UUID.randomUUID().toString(), user,50);
-//        }
-//
-//        System.out.println(System.currentTimeMillis() - s);
+        long s = System.currentTimeMillis();
+        for(int i = 0 ; i < 100 ; i++){
+            redisCacheManager.set("1:" + UUID.randomUUID().toString(), user,50);
+        }
+
+        System.out.println(System.currentTimeMillis() - s);
 
 
     }
