@@ -23,7 +23,7 @@ public class ContentServiceImpl implements ContentService {
     private ContentMapper contentMapper;
 
     @Override
-    public void batchInsert(List<Content> contents) {
-        contentMapper.insertContentBatch(contents);
+    public int batchInsert(List<Content> contents) {
+        return contentMapper.insertContentBatch(contents);
     }
 }

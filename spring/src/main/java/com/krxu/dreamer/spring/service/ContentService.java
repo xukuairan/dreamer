@@ -17,5 +17,5 @@ public interface ContentService {
      *
      * @param contents
      */
-    void batchInsert(List<Content> contents);
+    int batchInsert(List<Content> contents);
 }

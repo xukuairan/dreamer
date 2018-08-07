@@ -3,11 +3,14 @@ package com.krxu.dreamer.spring;
 import com.krxu.dreamer.spring.dao.entity.Content;
 import com.krxu.dreamer.spring.service.ContentService;
 import com.krxu.dreamer.spring.service.impl.ContentServiceImpl;
+import com.krxu.dreamer.spring.task.JokeJiCrawlTask;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author xukuairan
@@ -31,19 +34,14 @@ public class SpringApp {
             System.out.println(">>>>>>>>>>>>>>>>  application start failed");
             System.exit(10086);
         }
-
+        ExecutorService executorService = Executors.newFixedThreadPool(20);
         ContentService contentService = context.getBean(ContentServiceImpl.class);
-
-        Content content = new Content();
-        content.setContentDetail("你好");
-        content.setCreateTime(new Date());
-        content.setCreator(0L);
-        content.setModifier(0L);
-        content.setContentType(new Short("1"));
-        content.setContentName("mzi");
-
-        List<Content> contentList = new ArrayList<>();
-        contentList.add(content);
-        contentService.batchInsert(contentList);
+        String url = "http://www.jokeji.cn/list_{num}.htm";
+        for(int i = 1 ; i < 600 ; i++){
+            String crawlUrl = url.replace("{num}", i+"");
+            JokeJiCrawlTask task = new JokeJiCrawlTask(crawlUrl,contentService);
+            //executorService.submit(task);
+            task.run();
+        }
     }
 }

@@ -23,12 +23,9 @@ public class CrawlTask implements Runnable{
     private static final String TARGET_URL = "http://www.jokeji.cn";
 
     public static void main(String[] args) throws IOException {
-        ExecutorService executorService = Executors.newFixedThreadPool(20);
+        System.out.println(crawlContent("http://www.jokeji.cn/jokehtml/冷笑话/2018080122041383.htm"));
 
-
-        //System.out.println(crawlContent("http://www.jokeji.cn/jokehtml/xy/2018080623100888.htm"));
-
-        System.out.println(crawlContentUrl("http://www.jokeji.cn/list_1.htm").size());
+       //System.out.println(crawlContentUrl("http://www.jokeji.cn/list_1.htm").size());
     }
 
     private String crawlContentUrl;
@@ -80,12 +77,25 @@ public class CrawlTask implements Runnable{
         List<String> result = new ArrayList<>();
         Document doc ;
         try {
-            doc = Jsoup.connect(contentUrl).get();
+            doc = Jsoup.connect(contentUrl).userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/62.0")
+                    .header("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+                    .header("Accept-Encoding","gzip, deflate")
+                    .header("Accept-Language","zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2")
+                    .header("Cache-Control","max-age=0")
+                    .header("Connection","keep-alive")
+                    .header("Cookie","safedog-flow-item=; __qc_wId=2…BBQB=FNNBLJJACBFDDPMOIIGLMNKH")
+                    .header("Host","www.jokeji.cn")
+                    .header("If-Modified-Since","Thu, 02 Aug 2018 16:50:13 GMT")
+                    .header("If-None-Match","80109ee1802ad41:0")
+                    .header("Upgrade-Insecure-Requests","1")
+                    .timeout(5000)
+                    .post();
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
 
+        System.out.println(doc);
         Element contentsEle = doc.body().getElementById("text110");
         Elements elements = contentsEle.getElementsByTag("p");
 
