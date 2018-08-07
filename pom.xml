@@ -38,6 +38,9 @@
         <lucene_version>5.5.5</lucene_version>
         <ikanalyzer_version>2012_u6</ikanalyzer_version>
         <jsoup_version>1.8.3</jsoup_version>
+        <mybatis-spring_version>1.3.2</mybatis-spring_version>
+        <mybatis_version>3.2.6</mybatis_version>
+        <mysql_version>5.1.30</mysql_version>
     </properties>
 
     <dependencyManagement>
@@ -256,6 +259,27 @@
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
                 <version>${jsoup_version}</version>
+            </dependency>
+
+
+            <!-- mybatis/spring包 start-->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis_version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring_version}</version>
+            </dependency>
+            <!-- mybatis/spring包 end-->
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql_version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

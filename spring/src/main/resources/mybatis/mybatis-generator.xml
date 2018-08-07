@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <!--指定特定数据库的jdbc驱动jar包的位置 -->
+    <classPathEntry location="D://maven_repository/repo-new/com/oracle/ojdbc6/11.1.0.7.0/ojdbc6-11.1.0.7.0.jar"/>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <!--生成注释-->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--数据库链接地址账号密码-->
+        <jdbcConnection driverClass="oracle.jdbc.OracleDriver"
+                        connectionURL="jdbc:oracle:thin:@//10.211.93.170:1521/orcl"
+                        userId="hnews_oms_basic"
+                        password="hnews_oms_basic">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!--生成Model类存放位置-->
+        <javaModelGenerator targetPackage="com.migu.henews.analyzer.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--生成映射文件存放位置-->
+        <sqlMapGenerator targetPackage="mybatis.mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!--生成Dao类存放位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.krxu.dreamer.spring.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--需要生成相关文件的表-->
+        <table tableName="NEWS_LABEL_INFO" domainObjectName="NewsLabelInfo" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>
+        <table tableName="NEWS_LABEL_RELATION" domainObjectName="NewsLabelRelation" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>
+    </context>
+
+</generatorConfiguration>

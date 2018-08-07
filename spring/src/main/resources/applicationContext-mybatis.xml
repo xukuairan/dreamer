@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx.xsd
+			http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--<context:property-placeholder location="classpath:jdbc.properties"/>-->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc_driver}"/>
+        <property name="url" value="${jdbc_url_oms_basic}"/>
+        <property name="username" value="${jdbc_username_oms_basic}"/>
+        <property name="password" value="${jdbc_password_oms_basic}"/>
+
+        <!-- Connection Pooling Info -->
+        <property name="maxActive" value="${dbcp_maxActive}"/>
+        <property name="maxIdle" value="${dbcp_maxIdle}"/>
+        <property name="defaultAutoCommit" value="${defaultAutoCommit}"/>
+        <!-- 连接Idle一个小时后超时 -->
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}"/>
+        <!--<property name="validationQuery" value="SELECT 1"/>-->
+    </bean>
+
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:mybatis/mybatis-configuration.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath*:mybatis/mapper/**.xml"/>
+    </bean>
+
+    <bean id="dataSourceProxy" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+        <property name="targetDataSource" ref="dataSource"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.migu.henews.analyzer.dao"/>
+
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+        <qualifier value="sunDataSource"/>
+    </bean>
+
+    <!-- 全注解方式 需加上@Transactional -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <aop:aspectj-autoproxy/>
+
+</beans>
+
