@@ -1,9 +1,13 @@
 package com.krxu.dreamer.spring;
 
-import com.krxu.dreamer.redis.manager.RedisCacheManager;
+import com.krxu.dreamer.spring.dao.entity.Content;
+import com.krxu.dreamer.spring.service.ContentService;
+import com.krxu.dreamer.spring.service.impl.ContentServiceImpl;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author xukuairan
@@ -28,20 +32,18 @@ public class SpringApp {
             System.exit(10086);
         }
 
-        RedisCacheManager redisCacheManager = (RedisCacheManager) context.getBean("redisCacheManager");
+        ContentService contentService = context.getBean(ContentServiceImpl.class);
 
-        User user = new User();
-        user.setId(924);
-        user.setName("xukuairan");
-        redisCacheManager.set("1:2:3", user, 120);
+        Content content = new Content();
+        content.setContentDetail("你好");
+        content.setCreateTime(new Date());
+        content.setCreator(0L);
+        content.setModifier(0L);
+        content.setContentType(new Short("1"));
+        content.setContentName("mzi");
 
-        long s = System.currentTimeMillis();
-        for(int i = 0 ; i < 100 ; i++){
-            redisCacheManager.set("1:" + UUID.randomUUID().toString(), user,50);
-        }
-
-        System.out.println(System.currentTimeMillis() - s);
-
-
+        List<Content> contentList = new ArrayList<>();
+        contentList.add(content);
+        contentService.batchInsert(contentList);
     }
 }

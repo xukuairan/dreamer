@@ -70,6 +70,11 @@
             <artifactId>mybatis-spring</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
         <!--<dependency>-->
             <!--<groupId>org.apache.xbean</groupId>-->
             <!--<artifactId>xbean-spring</artifactId>-->
@@ -108,9 +113,34 @@
         </dependency>
 
         <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.krxu.dreamer</groupId>
             <artifactId>redis</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <!--这是一个mybatis逆向生成工具，用于逆向生成实体-->
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    <configurationFile>src\main\resources\mybatis\mybatis-generator.xml</configurationFile>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 </project>

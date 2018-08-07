@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.krxu.dreamer.spring.dao.ContentMapper" >
+  <resultMap id="BaseResultMap" type="com.krxu.dreamer.spring.dao.entity.Content" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="BIGINT" />
+    <result column="modifier" property="modifier" jdbcType="BIGINT" />
+    <result column="content_name" property="contentName" jdbcType="VARCHAR" />
+    <result column="content_type" property="contentType" jdbcType="SMALLINT" />
+    <result column="content_detail" property="contentDetail" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, modify_time, create_time, creator, modifier, content_name, content_type, content_detail
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from content
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from content
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.krxu.dreamer.spring.dao.entity.Content" >
+    insert into content (id, modify_time, create_time, 
+      creator, modifier, content_name, 
+      content_type, content_detail)
+    values (#{id,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=BIGINT}, #{modifier,jdbcType=BIGINT}, #{contentName,jdbcType=VARCHAR}, 
+      #{contentType,jdbcType=SMALLINT}, #{contentDetail,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.krxu.dreamer.spring.dao.entity.Content" >
+    insert into content
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="contentName != null" >
+        content_name,
+      </if>
+      <if test="contentType != null" >
+        content_type,
+      </if>
+      <if test="contentDetail != null" >
+        content_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="contentName != null" >
+        #{contentName,jdbcType=VARCHAR},
+      </if>
+      <if test="contentType != null" >
+        #{contentType,jdbcType=SMALLINT},
+      </if>
+      <if test="contentDetail != null" >
+        #{contentDetail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id ="insertContentBatch" parameterType="java.util.List">
+    insert into content
+      (modify_time, create_time, creator, modifier, content_name,content_type, content_detail)
+    values
+    <foreach collection ="list" item="cont" index= "index" separator =",">
+      (
+        #{cont.modifyTime, jdbcType=TIMESTAMP},
+        #{cont.createTime, jdbcType=TIMESTAMP},
+        #{cont.creator, jdbcType=BIGINT},
+        #{cont.modifier, jdbcType=BIGINT},
+        #{cont.contentName,jdbcType=VARCHAR},
+        #{cont.contentType, jdbcType=SMALLINT},
+        #{cont.contentDetail,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+
+
+</mapper>

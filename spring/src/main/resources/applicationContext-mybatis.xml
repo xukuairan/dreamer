@@ -17,13 +17,11 @@
         <property name="username" value="${jdbc_username_oms_basic}"/>
         <property name="password" value="${jdbc_password_oms_basic}"/>
 
-        <!-- Connection Pooling Info -->
         <property name="maxActive" value="${dbcp_maxActive}"/>
         <property name="maxIdle" value="${dbcp_maxIdle}"/>
         <property name="defaultAutoCommit" value="${defaultAutoCommit}"/>
-        <!-- 连接Idle一个小时后超时 -->
         <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}"/>
-        <!--<property name="validationQuery" value="SELECT 1"/>-->
+        <property name="validationQuery" value="SELECT 1"/>
     </bean>
 
 
@@ -39,7 +37,7 @@
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-        <property name="basePackage" value="com.migu.henews.analyzer.dao"/>
+        <property name="basePackage" value="com.krxu.dreamer.spring.dao"/>
 
     </bean>
 
