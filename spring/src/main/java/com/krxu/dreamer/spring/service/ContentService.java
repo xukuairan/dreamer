@@ -18,4 +18,6 @@ public interface ContentService {
      * @param contents
      */
     int batchInsert(List<Content> contents);
+
+    List<Content> queryAll();
 }

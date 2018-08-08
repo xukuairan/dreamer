@@ -34,14 +34,9 @@ public class SpringApp {
             System.out.println(">>>>>>>>>>>>>>>>  application start failed");
             System.exit(10086);
         }
-        ExecutorService executorService = Executors.newFixedThreadPool(20);
         ContentService contentService = context.getBean(ContentServiceImpl.class);
-        String url = "http://www.jokeji.cn/list_{num}.htm";
-        for(int i = 1 ; i < 600 ; i++){
-            String crawlUrl = url.replace("{num}", i+"");
-            JokeJiCrawlTask task = new JokeJiCrawlTask(crawlUrl,contentService);
-            //executorService.submit(task);
-            task.run();
-        }
+        Long start = System.currentTimeMillis();
+        System.out.println(contentService.queryAll());
+        System.out.println(System.currentTimeMillis() - start);
     }
 }

@@ -15,4 +15,6 @@ public interface ContentMapper {
 
 
     int insertContentBatch(List<Content> contentList);
+
+    List<Content> queryAll();
 }

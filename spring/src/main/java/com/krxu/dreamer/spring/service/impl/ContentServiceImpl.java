@@ -26,4 +26,9 @@ public class ContentServiceImpl implements ContentService {
     public int batchInsert(List<Content> contents) {
         return contentMapper.insertContentBatch(contents);
     }
+
+    @Override
+    public List<Content> queryAll() {
+        return contentMapper.queryAll();
+    }
 }

@@ -12,7 +12,7 @@
             </list>
         </property>
     </bean>
-    <import resource="applicationContext-redis.xml"/>
+    <!--<import resource="applicationContext-redis.xml"/>-->
     <import resource="applicationContext-bean.xml"/>
     <import resource="applicationContext-mybatis.xml"/>
 </beans>
