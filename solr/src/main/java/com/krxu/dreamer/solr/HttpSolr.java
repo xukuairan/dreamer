@@ -21,16 +21,23 @@ public class HttpSolr {
     private final static String SOLR_URL = "http://localhost:8080/solr";
     private static HttpSolrServer server = new HttpSolrServer(HttpSolr.SOLR_URL);
 
+
+
     @Test
     public void add() throws IOException, SolrServerException {
         SolrInputDocument doc = new SolrInputDocument();
         doc.addField("id", 924);
         doc.addField("content","你猜啊啊");
         server.add(doc);
-        server.deleteById("924");
         //提交，将所有更新提交到索引中
         server.commit();
         //server.addBeans(list) 批量新增索引，list泛型实体类必须有solr field注解
+    }
+
+    @Test
+    public void delete() throws IOException, SolrServerException {
+        server.deleteById("924");
+        server.commit();
     }
 
     @Test
