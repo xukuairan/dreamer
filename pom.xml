@@ -15,6 +15,7 @@
         <module>spring</module>
         <module>netty</module>
         <module>solr</module>
+        <module>spring-dubbo</module>
     </modules>
 
     <properties>
@@ -45,6 +46,9 @@
         <mybatis_version>3.2.6</mybatis_version>
         <mysql_version>5.1.30</mysql_version>
         <solrj_version>4.10.3</solrj_version>
+        <dubbo_version>2.5.3</dubbo_version>
+        <zk_version>3.4.12</zk_version>
+        <tec_zkclient_version>0.10</tec_zkclient_version>
     </properties>
 
     <dependencyManagement>
@@ -304,6 +308,23 @@
                 <version>${solrj_version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo_version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${zk_version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.101tec</groupId>
+                <artifactId>zkclient</artifactId>
+                <version>${tec_zkclient_version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -316,6 +337,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
