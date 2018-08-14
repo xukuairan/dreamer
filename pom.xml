@@ -23,6 +23,7 @@
         <jdk_version>1.7</jdk_version>
         <junit_version>4.12</junit_version>
         <lombok_version>1.16.18</lombok_version>
+        <log4j_version>1.2.17</log4j_version>
         <spring_version>4.0.2.RELEASE</spring_version>
         <spring_data_redis>1.6.2.RELEASE</spring_data_redis>
         <jedis_version>2.9.0</jedis_version>
@@ -49,6 +50,7 @@
         <dubbo_version>2.5.3</dubbo_version>
         <zk_version>3.4.12</zk_version>
         <tec_zkclient_version>0.10</tec_zkclient_version>
+        <netty_version>4.1.6.Final</netty_version>
     </properties>
 
     <dependencyManagement>
@@ -63,6 +65,12 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok_version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j_version}</version>
             </dependency>
 
             <!-- Spring核心包 start-->
@@ -340,6 +348,13 @@
                 <artifactId>zkclient</artifactId>
                 <version>${tec_zkclient_version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty_version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -352,6 +367,11 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
         </dependency>
     </dependencies>
 

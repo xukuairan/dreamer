@@ -17,23 +17,17 @@ import java.util.Iterator;
  */
 public class JsoupTouTiao {
 
-    private static final String URL = "http://news.youth.cn/sh/201808/t20180810_11693976.htm";
+    private static final String URL = "https://www.cnblogs.com/weknow619/p/9466198.html";
 
     @Test
-    public void crawlMain(){
+    public void crawlMain() {
         Document doc = null;
         try {
             doc = Jsoup.connect(URL).get();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Elements elements = doc.body().getElementsByClass("TRS_Editor");
-        Iterator<Element> it  = elements.iterator();
-        while(it.hasNext()){
-            Element element = it.next();
-            String re = element.getElementsByTag("p").text();
-            System.out.println(re);
-        }
+        System.out.println(doc);
     }
 
 }

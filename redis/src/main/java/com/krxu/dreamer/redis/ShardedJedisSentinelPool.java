@@ -115,7 +115,9 @@ public class ShardedJedisSentinelPool extends Pool<ShardedJedis> {
         if (currentShardMasters != null && shardMasters != null) {
             if (currentShardMasters.size() == shardMasters.size()) {
                 for (int i = 0; i < currentShardMasters.size(); i++) {
-                    if (!currentShardMasters.get(i).equals(shardMasters.get(i))) return false;
+                    if (!currentShardMasters.get(i).equals(shardMasters.get(i))) {
+                        return false;
+                    }
                 }
                 return true;
             }

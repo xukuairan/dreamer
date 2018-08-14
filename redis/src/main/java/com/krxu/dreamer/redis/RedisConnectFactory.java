@@ -53,7 +53,10 @@ public class RedisConnectFactory {
             }catch(Exception ex){
                 throw new RuntimeException("init jedis error: " + connectUrl , ex);
             } finally {
-                jedis.close();
+                if(jedis != null){
+                    jedis.disconnect();
+                    jedis.close();
+                }
             }
         }
         if (sentinelCount > 0 && sentinelCount != connectUrlArray.length
@@ -127,6 +130,7 @@ public class RedisConnectFactory {
         if (sentinels != null && sentinels.size() != 0) {
             Iterator sentinelIt = sentinels.iterator();
 
+            //遍历配置的每个哨兵
             while (sentinelIt.hasNext()) {
                 String sentinel = (String) sentinelIt.next();
                 HostAndPort hap = toHostAndPort(Arrays.asList(sentinel.split(":")));
