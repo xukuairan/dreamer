@@ -1,7 +1,5 @@
 package com.krxu.dreamer.basic;
 
-import org.json.JSONObject;
-
 /**
  * @author xukuairan
  * @version xxx
@@ -11,16 +9,17 @@ import org.json.JSONObject;
 public class AppBasic {
 
 
-    public static void main(String[] args){
-        for(int i = 3 ; i < 20 ; i ++){
-            System.out.println("=====" + i );
-            System.out.println(i / 2  - 1);
-            System.out.println((i-1) / 2 );
+    public static void main(String[] args) {
+        String str = "/ctr/groupId/userId";
 
+        String[] uris = str.split("/");
+        for(String uri : uris){
+            System.out.println(uri);
         }
-
-
+        System.out.println(str.substring(1));
     }
+
+
 
 }
 
