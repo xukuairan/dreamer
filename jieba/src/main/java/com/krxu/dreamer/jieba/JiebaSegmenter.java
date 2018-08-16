@@ -14,7 +14,7 @@ public class JiebaSegmenter {
         SEARCH
     }
 
-    private String[] props = {"an", "j", "l", "n", "nr", "ns", "nt", "nz", ""};
+    private String[] props = {"an", "j", "l", "n", "nr", "ns", "nt", "nz"};
 
     private List<String> propsList = Arrays.asList(props);
 
@@ -94,12 +94,6 @@ public class JiebaSegmenter {
                         }
                     } else {
                         for (String token : sentenceProcess(sb.toString())) {
-
-                            String property = wordDict.getWordProperty(token);
-                            if(!propsList.contains(property)){
-                                continue;
-                            }
-
                             if (token.length() > 2) {
                                 String gram2;
                                 int j = 0;
@@ -137,11 +131,6 @@ public class JiebaSegmenter {
                 }
             } else {
                 for (String token : sentenceProcess(sb.toString())) {
-
-                    String property = wordDict.getWordProperty(token);
-                    if(!propsList.contains(property)){
-                        continue;
-                    }
 
                     if (token.length() > 2) {
                         String gram2;

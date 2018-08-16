@@ -16,7 +16,7 @@ import java.util.Map;
 public class TestJieba {
     @Test
     public void test() {
-        String text = "孩子哈师大在孩子";
+        String text = "孩子哈师大在孩子；；》》】阿萨德】";
         System.out.println(analyzeWords(text));
 
     }
