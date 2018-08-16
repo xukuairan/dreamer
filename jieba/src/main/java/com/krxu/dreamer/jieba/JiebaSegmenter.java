@@ -1,9 +1,6 @@
 package com.krxu.dreamer.jieba;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.krxu.dreamer.jieba.viterbi.FinalSeg;
 
@@ -17,6 +14,9 @@ public class JiebaSegmenter {
         SEARCH
     }
 
+    private String[] props = {"an", "j", "l", "n", "nr", "ns", "nt", "nz", ""};
+
+    private List<String> propsList = Arrays.asList(props);
 
     private Map<Integer, List<Integer>> createDAG(String sentence) {
         Map<Integer, List<Integer>> dag = new HashMap<Integer, List<Integer>>();
@@ -83,9 +83,9 @@ public class JiebaSegmenter {
         int offset = 0;
         for (int i = 0; i < paragraph.length(); ++i) {
             char ch = CharacterUtil.regularize(paragraph.charAt(i));
-            if (CharacterUtil.ccFind(ch))
+            if (CharacterUtil.ccFind(ch)) {
                 sb.append(ch);
-            else {
+            } else {
                 if (sb.length() > 0) {
                     // process
                     if (mode == SegMode.SEARCH) {
@@ -94,6 +94,12 @@ public class JiebaSegmenter {
                         }
                     } else {
                         for (String token : sentenceProcess(sb.toString())) {
+
+                            String property = wordDict.getWordProperty(token);
+                            if(!propsList.contains(property)){
+                                continue;
+                            }
+
                             if (token.length() > 2) {
                                 String gram2;
                                 int j = 0;
@@ -131,6 +137,12 @@ public class JiebaSegmenter {
                 }
             } else {
                 for (String token : sentenceProcess(sb.toString())) {
+
+                    String property = wordDict.getWordProperty(token);
+                    if(!propsList.contains(property)){
+                        continue;
+                    }
+
                     if (token.length() > 2) {
                         String gram2;
                         int j = 0;
@@ -173,9 +185,9 @@ public class JiebaSegmenter {
         while (x < N) {
             y = route.get(x).key + 1;
             String lWord = sentence.substring(x, y);
-            if (y - x == 1)
+            if (y - x == 1) {
                 sb.append(lWord);
-            else {
+            }else {
                 if (sb.length() > 0) {
                     buf = sb.toString();
                     sb = new StringBuilder();

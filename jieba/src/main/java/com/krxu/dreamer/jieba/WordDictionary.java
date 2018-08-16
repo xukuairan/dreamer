@@ -27,6 +27,8 @@ public class WordDictionary {
     private Double minFreq = Double.MAX_VALUE;
     private Double total = 0.0;
     private DictSegment _dict;
+    //词性
+    public final Map<String, String> wordProperty = new HashMap<>();
 
 
     private WordDictionary() {
@@ -62,7 +64,7 @@ public class WordDictionary {
             DirectoryStream<Path> stream;
             try {
                 stream = Files.newDirectoryStream(configFile, String.format(Locale.getDefault(), "*%s", USER_DICT_SUFFIX));
-                for (Path path: stream){
+                for (Path path : stream) {
                     System.err.println(String.format(Locale.getDefault(), "loading dict %s", path.toString()));
                     singleton.loadUserDict(path);
                 }
@@ -94,6 +96,11 @@ public class WordDictionary {
                 double freq = Double.valueOf(tokens[1]);
                 total += freq;
                 word = addWord(word);
+                if (tokens.length > 2) {
+                    String property = tokens[2];
+                    wordProperty.put(word, property);
+                }
+
                 freqs.put(word, freq);
             }
             // normalize
@@ -103,16 +110,13 @@ public class WordDictionary {
             }
             System.out.println(String.format(Locale.getDefault(), "main dict load finished, time elapsed %d ms",
                     System.currentTimeMillis() - s));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.err.println(String.format(Locale.getDefault(), "%s load failure!", MAIN_DICT));
-        }
-        finally {
+        } finally {
             try {
                 if (null != is)
                     is.close();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 System.err.println(String.format(Locale.getDefault(), "%s close failure!", MAIN_DICT));
             }
         }
@@ -124,8 +128,7 @@ public class WordDictionary {
             String key = word.trim().toLowerCase(Locale.getDefault());
             _dict.fillSegment(key.toCharArray());
             return key;
-        }
-        else
+        } else
             return null;
     }
 
@@ -155,8 +158,7 @@ public class WordDictionary {
             }
             System.out.println(String.format(Locale.getDefault(), "user dict %s load finished, tot words:%d, time elapsed:%dms", userDict.toString(), count, System.currentTimeMillis() - s));
             br.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.err.println(String.format(Locale.getDefault(), "%s: load user dict failure!", userDict.toString()));
         }
     }
@@ -177,5 +179,13 @@ public class WordDictionary {
             return freqs.get(key);
         else
             return minFreq;
+    }
+
+    /**
+     * 获取词汇属性
+     * @return
+     */
+    public String getWordProperty(String word){
+       return wordProperty.get(word);
     }
 }
