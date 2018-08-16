@@ -16,6 +16,7 @@
         <module>netty</module>
         <module>solr</module>
         <module>spring-dubbo</module>
+        <module>jieba</module>
     </modules>
 
     <properties>

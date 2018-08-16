@@ -2,6 +2,7 @@ package com.krxu.dreamer.netty.websocket;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -35,7 +36,15 @@ public class ChatRoom {
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
+                        public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+                            super.handlerAdded(ctx);
+
+                            System.out.println("nikan o :" + ctx.channel());
+                        }
+
+                        @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
+                            System.out.println("222");
                             socketChannel.pipeline().addLast("http-codec", new HttpServerCodec());
                             socketChannel.pipeline().addLast("aggregator", new HttpObjectAggregator(65536));
                             socketChannel.pipeline().addLast("http-chunked", new ChunkedWriteHandler());
