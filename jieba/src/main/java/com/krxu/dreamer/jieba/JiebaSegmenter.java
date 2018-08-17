@@ -14,10 +14,6 @@ public class JiebaSegmenter {
         SEARCH
     }
 
-    private String[] props = {"an", "j", "l", "n", "nr", "ns", "nt", "nz"};
-
-    private List<String> propsList = Arrays.asList(props);
-
     private Map<Integer, List<Integer>> createDAG(String sentence) {
         Map<Integer, List<Integer>> dag = new HashMap<Integer, List<Integer>>();
         DictSegment trie = wordDict.getTrie();
@@ -78,7 +74,7 @@ public class JiebaSegmenter {
 
 
     public List<SegToken> process(String paragraph, SegMode mode) {
-        List<SegToken> tokens = new ArrayList<SegToken>();
+        List<SegToken> tokens = new SegTokenList();
         StringBuilder sb = new StringBuilder();
         int offset = 0;
         for (int i = 0; i < paragraph.length(); ++i) {
@@ -99,8 +95,7 @@ public class JiebaSegmenter {
                                 int j = 0;
                                 for (; j < token.length() - 1; ++j) {
                                     gram2 = token.substring(j, j + 2);
-                                    if (wordDict.containsWord(gram2))
-                                        tokens.add(new SegToken(gram2, offset + j, offset + j + 2));
+                                    tokens.add(new SegToken(gram2, offset + j, offset + j + 2));
                                 }
                             }
                             if (token.length() > 3) {
@@ -108,8 +103,7 @@ public class JiebaSegmenter {
                                 int j = 0;
                                 for (; j < token.length() - 2; ++j) {
                                     gram3 = token.substring(j, j + 3);
-                                    if (wordDict.containsWord(gram3))
-                                        tokens.add(new SegToken(gram3, offset + j, offset + j + 3));
+                                    tokens.add(new SegToken(gram3, offset + j, offset + j + 3));
                                 }
                             }
                             tokens.add(new SegToken(token, offset, offset += token.length()));
@@ -118,10 +112,7 @@ public class JiebaSegmenter {
                     sb = new StringBuilder();
                     offset = i;
                 }
-                if (wordDict.containsWord(paragraph.substring(i, i + 1)))
-                    tokens.add(new SegToken(paragraph.substring(i, i + 1), offset, ++offset));
-                else
-                    tokens.add(new SegToken(paragraph.substring(i, i + 1), offset, ++offset));
+                tokens.add(new SegToken(paragraph.substring(i, i + 1), offset, ++offset));
             }
         }
         if (sb.length() > 0)
@@ -137,8 +128,7 @@ public class JiebaSegmenter {
                         int j = 0;
                         for (; j < token.length() - 1; ++j) {
                             gram2 = token.substring(j, j + 2);
-                            if (wordDict.containsWord(gram2))
-                                tokens.add(new SegToken(gram2, offset + j, offset + j + 2));
+                            tokens.add(new SegToken(gram2, offset + j, offset + j + 2));
                         }
                     }
                     if (token.length() > 3) {
@@ -146,8 +136,7 @@ public class JiebaSegmenter {
                         int j = 0;
                         for (; j < token.length() - 2; ++j) {
                             gram3 = token.substring(j, j + 3);
-                            if (wordDict.containsWord(gram3))
-                                tokens.add(new SegToken(gram3, offset + j, offset + j + 3));
+                            tokens.add(new SegToken(gram3, offset + j, offset + j + 3));
                         }
                     }
                     tokens.add(new SegToken(token, offset, offset += token.length()));
@@ -176,7 +165,7 @@ public class JiebaSegmenter {
             String lWord = sentence.substring(x, y);
             if (y - x == 1) {
                 sb.append(lWord);
-            }else {
+            } else {
                 if (sb.length() > 0) {
                     buf = sb.toString();
                     sb = new StringBuilder();

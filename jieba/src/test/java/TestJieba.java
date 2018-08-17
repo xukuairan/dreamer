@@ -26,7 +26,7 @@ public class TestJieba {
         Map<String, Integer> map = new HashMap<>();
         JiebaSegmenter segmenter = new JiebaSegmenter();
         List<SegToken> segTokens = segmenter.process(text, JiebaSegmenter.SegMode.INDEX);
-
+        System.out.println(segTokens);
         for (SegToken segToken : segTokens) {
             String word = segToken.word;
             if (null == map.get(word)) {

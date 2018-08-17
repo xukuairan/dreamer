@@ -16,7 +16,7 @@ import java.util.List;
  *     可以使用双指针的方式，一个指针指向数组的开始，一个指针指向数组的尾部，
  *     如果头部的数为偶数且尾部的数是奇数则交换，否则头部指针向后移动，尾部指针向前移动，直到两个指针相遇
  */
-public class Aug_11 {
+public class Aug_13 {
 
     @Test
     public void test(){

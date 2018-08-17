@@ -10,16 +10,21 @@ public class AppBasic {
 
 
     public static void main(String[] args) {
-        String str = "/ctr/groupId/userId";
+        Thread t = new Thread(new Task(), "xxx");
+        t.start();
 
-        String[] uris = str.split("/");
-        for(String uri : uris){
-            System.out.println(uri);
-        }
-        System.out.println(str.substring(1));
     }
 
+    private static class Task implements Runnable{
 
+
+        @Override
+        public void run() {
+            Thread t = Thread.currentThread();
+            System.out.println(t.getName());
+            t.start();
+        }
+    }
 
 }
 
