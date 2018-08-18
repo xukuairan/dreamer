@@ -36,7 +36,7 @@ public class SpringApp {
         }
         ContentService contentService = context.getBean(ContentServiceImpl.class);
         Long start = System.currentTimeMillis();
-        System.out.println(contentService.queryAll());
+        System.out.println(contentService.getContent(3620L,null));
         System.out.println(System.currentTimeMillis() - start);
     }
 }

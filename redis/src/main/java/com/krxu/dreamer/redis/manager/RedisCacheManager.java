@@ -37,4 +37,12 @@ public interface RedisCacheManager {
      * @return
      */
     <T> String set(String key, T value, int expireTime);
+
+    /**
+     * 缓存是否存在
+     *
+     * @param key
+     * @return
+     */
+    boolean exists(String key);
 }

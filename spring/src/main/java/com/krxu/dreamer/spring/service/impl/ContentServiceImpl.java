@@ -1,5 +1,6 @@
 package com.krxu.dreamer.spring.service.impl;
 
+import com.krxu.dreamer.spring.cache.RedisCache;
 import com.krxu.dreamer.spring.dao.ContentMapper;
 import com.krxu.dreamer.spring.dao.entity.Content;
 import com.krxu.dreamer.spring.service.ContentService;
@@ -31,4 +32,16 @@ public class ContentServiceImpl implements ContentService {
     public List<Content> queryAll() {
         return contentMapper.queryAll();
     }
+
+    @Override
+    @RedisCache(prefixKey = "content", expire = 1000)
+    public Content getContent(Long id, Long id2) {
+        Content content = contentMapper.selectByPrimaryKey(id);
+        if (log.isDebugEnabled()) {
+            log.debug("return content:" + content.getContentDetail());
+        }
+        return content;
+    }
+
+
 }

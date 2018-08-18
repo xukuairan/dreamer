@@ -26,11 +26,11 @@ public class RedisCacheManagerImpl implements RedisCacheManager {
         }
         T value = null;
         byte[] ret = null;
-        ShardedJedis jedis = null;
+        ShardedJedis shardedJedis = null;
 
         try {
-            jedis = this.redisConnectFactory.getShardedJedis();
-            ret = jedis.get(SafeEncoder.encode(key));
+            shardedJedis = this.redisConnectFactory.getShardedJedis();
+            ret = shardedJedis.get(SafeEncoder.encode(key));
             if (ret != null) {
                 value = SerializationUtil.deserialize(ret, clazz);
                 if (logger.isDebugEnabled()) {
@@ -40,7 +40,7 @@ public class RedisCacheManagerImpl implements RedisCacheManager {
         } catch (Throwable throwable) {
             logger.error("Error happened when calling get, key=" + key + '.', throwable);
         } finally {
-            this.redisConnectFactory.returnShardedJedis(jedis);
+            this.redisConnectFactory.returnShardedJedis(shardedJedis);
         }
 
         return value;
@@ -51,16 +51,19 @@ public class RedisCacheManagerImpl implements RedisCacheManager {
         if (null == key || key.trim().length() == 0) {
             return null;
         }
+        if(value == null){
+            return null;
+        }
         String status = null;
-        ShardedJedis jedis = null;
+        ShardedJedis shardedJedis = null;
         try {
             byte[] data = SerializationUtil.serialize(value);
-            jedis = this.redisConnectFactory.getShardedJedis();
-            status = jedis.set(SafeEncoder.encode(key), data);
+            shardedJedis = this.redisConnectFactory.getShardedJedis();
+            status = shardedJedis.set(SafeEncoder.encode(key), data);
         } catch (Throwable throwable) {
             logger.error("Error happened when calling set, key=" + key + ", value=" + value + '.', throwable);
         } finally {
-            this.redisConnectFactory.returnShardedJedis(jedis);
+            this.redisConnectFactory.returnShardedJedis(shardedJedis);
         }
         return status;
     }
@@ -71,17 +74,34 @@ public class RedisCacheManagerImpl implements RedisCacheManager {
             return null;
         }
         String status = null;
-        ShardedJedis jedis = null;
+        ShardedJedis shardedJedis = null;
         try {
             byte[] data = SerializationUtil.serialize(value);
-            jedis = this.redisConnectFactory.getShardedJedis();
-            status = jedis.setex(SafeEncoder.encode(key), expireTime, data);
+            shardedJedis = this.redisConnectFactory.getShardedJedis();
+            status = shardedJedis.setex(SafeEncoder.encode(key), expireTime, data);
         } catch (Throwable throwable) {
             logger.error("Error happened when calling set, key=" + key + ", value=" + value + '.', throwable);
         } finally {
-            this.redisConnectFactory.returnShardedJedis(jedis);
+            this.redisConnectFactory.returnShardedJedis(shardedJedis);
         }
         return status;
+    }
+
+    @Override
+    public boolean exists(String key) {
+        if (null == key || key.trim().length() == 0) {
+            return false;
+        }
+        ShardedJedis shardedJedis = null;
+        try {
+            shardedJedis = this.redisConnectFactory.getShardedJedis();
+            return shardedJedis.exists(key);
+        } catch (Throwable throwable) {
+            logger.error("Error happened when exists, key=" + key, throwable);
+        } finally {
+            this.redisConnectFactory.returnShardedJedis(shardedJedis);
+        }
+        return false;
     }
 
     public void setRedisConnectFactory(RedisConnectFactory redisConnectFactory) {

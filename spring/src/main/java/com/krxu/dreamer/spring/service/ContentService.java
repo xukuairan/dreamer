@@ -20,4 +20,12 @@ public interface ContentService {
     int batchInsert(List<Content> contents);
 
     List<Content> queryAll();
+
+    /**
+     * id查询
+     *
+     * @param id
+     * @return
+     */
+    Content getContent(Long id, Long id2);
 }
