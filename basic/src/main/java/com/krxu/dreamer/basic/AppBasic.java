@@ -10,9 +10,10 @@ public class AppBasic {
 
 
     public static void main(String[] args) {
-        Thread t = new Thread(new Task(), "xxx");
-        t.start();
-
+        String a = new String();
+        String b = new String();
+        System.out.println(a==b);
+        System.out.println(a.getClass()==b.getClass());
     }
 
     private static class Task implements Runnable{
