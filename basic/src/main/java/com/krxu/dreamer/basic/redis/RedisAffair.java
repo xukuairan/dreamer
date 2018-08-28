@@ -22,7 +22,7 @@ public class RedisAffair {
     private static final int REDIS_PORT = 6379;
 
     static {
-      //初始化抢购数据
+        //初始化抢购数据
         Jedis jedis = new Jedis(REDIS_HOST, REDIS_PORT);
         jedis.set(KEY, "0");
         jedis.del("setsucc", "setfail");
