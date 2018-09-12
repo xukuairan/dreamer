@@ -79,15 +79,13 @@ public class RedisAffair {
                 //开始一个事务
                 Transaction transaction = jedis.multi();
                 Response<Long> response = transaction.decrBy(NUM_WATCH_KEY, num);
+                transaction.sadd(SUCCESS_USER_KEY, user);
+                transaction.hset(SALE_DETAIL_KEY, user, num + "");
+
                 // 提交事务，如果此时key被改动了，则返回null
                 List<Object> list = transaction.exec();
                 if (list != null && !list.isEmpty()) {
                     log.info("用户：" + user + "抢购成功:" + num + ",剩余:" + response.get());
-                    jedis.sadd(SUCCESS_USER_KEY, user);
-                    jedis.hset(SALE_DETAIL_KEY, user, num + "");
-                }else{
-                    //log.info("用户：" + user + "抢购失败:" + num + ",剩余:" + surplus);
-                    return;
                 }
             }catch (Exception ex){
                 log.error(ex.getMessage(), ex);
