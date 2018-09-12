@@ -34,9 +34,12 @@ public class SpringApp {
             System.out.println(">>>>>>>>>>>>>>>>  application start failed");
             System.exit(10086);
         }
-        ContentService contentService = context.getBean(ContentServiceImpl.class);
-        Long start = System.currentTimeMillis();
-        System.out.println(contentService.getContent(3620L,null));
-        System.out.println(System.currentTimeMillis() - start);
+//        ContentService contentService = context.getBean(ContentServiceImpl.class);
+//        Long start = System.currentTimeMillis();
+//        System.out.println(contentService.getContent(3620L,null));
+//        System.out.println(System.currentTimeMillis() - start);
+
+
+
     }
 }

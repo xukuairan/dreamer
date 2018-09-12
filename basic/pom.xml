@@ -51,7 +51,13 @@
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
         </dependency>
-        
+
+        <dependency>
+            <groupId>com.krxu.dreamer</groupId>
+            <artifactId>redis</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <!--<dependency>-->
             <!--<groupId>com.huawei.iread</groupId>-->
             <!--<artifactId>server-domain-api</artifactId>-->

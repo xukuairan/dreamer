@@ -17,7 +17,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 public class Aug_20 {
 
     @Test
-    public void test(){
+    public void arrayBlockingQueue(){
         //构造方法有： 1.队列大小 2.队列大小，是否公平竞争锁  3.队列大小，是否公平竞争锁，装入集合
         String[] array = {"qwe","asd","zxc","vbn"};
         List<String> list = Arrays.asList(array);

@@ -10,20 +10,21 @@ public class AppBasic {
 
 
     public static void main(String[] args) {
-        String a = new String();
-        String b = new String();
-        System.out.println(a==b);
-        System.out.println(a.getClass()==b.getClass());
+        System.out.println(isBlank(" "));
     }
 
-    private static class Task implements Runnable{
+    public static boolean isBlank(String str) {
+        int strLen;
+        if (str != null && (strLen = str.length()) != 0) {
+            for(int i = 0; i < strLen; ++i) {
+                if (!Character.isWhitespace(str.charAt(i))) {
+                    return false;
+                }
+            }
 
-
-        @Override
-        public void run() {
-            Thread t = Thread.currentThread();
-            System.out.println(t.getName());
-            t.start();
+            return true;
+        } else {
+            return true;
         }
     }
 

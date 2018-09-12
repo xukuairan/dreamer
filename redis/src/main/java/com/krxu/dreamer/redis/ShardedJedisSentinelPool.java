@@ -199,6 +199,8 @@ public class ShardedJedisSentinelPool extends Pool<ShardedJedis> {
             for (String sentinel : sentinels) {
                 final HostAndPort hap = toHostAndPort(Arrays.asList(sentinel.split(":")));
                 MasterListener masterListener = new MasterListener(masters, hap.getHost(), hap.getPort());
+                masterListener.setDaemon(true);
+                masterListener.setName("master-listener-thread");
                 masterListeners.add(masterListener);
                 masterListener.start();
             }
