@@ -67,6 +67,7 @@ public class RedisAffair {
 
             Jedis jedis = pool.getResource();
             try{
+                //WATCH命令的作用只是当被监控的键值被修改后阻止之后一个事务的执行
                 jedis.watch(NUM_WATCH_KEY);
                 Long surplus = Long.valueOf(jedis.get(NUM_WATCH_KEY));
 
