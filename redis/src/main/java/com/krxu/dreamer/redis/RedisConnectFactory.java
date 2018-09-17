@@ -11,22 +11,34 @@ import java.util.*;
  * @author xukuairan
  * @version [版本号]
  * @date 2018-07-28
- * @description [添加描述]
+ * @description redis连接工厂
  */
 public class RedisConnectFactory {
 
     private static final Logger logger = Logger.getLogger(RedisConnectFactory.class);
 
+    /**
+     * 连接地址 ip1:port1,ip2:port2
+     */
     private String connectUrls;
 
+    /**
+     * 密码
+     */
     private String password;
 
+    /**
+     * 配置
+     */
     private JedisPoolConfig config;
 
+    /**
+     * 连接池
+     */
     private Pool<ShardedJedis> pool;
 
     /**
-     * spring 初始化
+     * 初始化连接池
      */
     public void init() {
         if (null == connectUrls || connectUrls.trim().length() == 0) {
@@ -50,10 +62,11 @@ public class RedisConnectFactory {
                 } else {
                     clusterCount++;
                 }
-            }catch(Exception ex){
-                throw new RuntimeException("init jedis error: " + connectUrl , ex);
+            } catch (Exception ex) {
+                logger.error("check redis error", ex);
+                throw new RuntimeException("check redis error: " + connectUrl, ex);
             } finally {
-                if(jedis != null){
+                if (jedis != null) {
                     jedis.disconnect();
                     jedis.close();
                 }
@@ -61,7 +74,8 @@ public class RedisConnectFactory {
         }
         if (sentinelCount > 0 && sentinelCount != connectUrlArray.length
                 || clusterCount > 0 && clusterCount != connectUrlArray.length) {
-            throw new RuntimeException("redis配置错误");
+            logger.error("redis配置错误,集群or哨兵数量不匹配");
+            throw new RuntimeException("redis配置错误,集群or哨兵数量不匹配");
         }
         //哨兵模式 或 集群模式
         if (sentinelCount > 0) {
@@ -124,6 +138,12 @@ public class RedisConnectFactory {
         this.config = config;
     }
 
+    /**
+     * 获取哨兵监控的master命名列表
+     *
+     * @param sentinels 哨兵列表
+     * @return
+     */
     private static List<String> parseMasters(Set<String> sentinels) {
         List<String> result = new ArrayList();
         Set<String> sentinelSet = new HashSet();
@@ -141,7 +161,7 @@ public class RedisConnectFactory {
                     jedis = new Jedis(hap.getHost(), hap.getPort());
                     masters = jedis.sentinelMasters();
                 } catch (Exception ex) {
-                    ex.printStackTrace();
+                    logger.error("Parse master by sentinels error", ex);
                 } finally {
                     if (null != jedis) {
                         jedis.close();
@@ -163,6 +183,12 @@ public class RedisConnectFactory {
         }
     }
 
+    /**
+     * ip端口转换对象
+     *
+     * @param iap
+     * @return
+     */
     private static HostAndPort toHostAndPort(List<String> iap) {
         if (null != iap && iap.size() == 2) {
             String host = iap.get(0);
