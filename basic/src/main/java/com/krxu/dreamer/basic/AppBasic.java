@@ -1,10 +1,5 @@
 package com.krxu.dreamer.basic;
 
-import java.lang.management.ManagementFactory;
-import java.lang.management.RuntimeMXBean;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * @author xukuairan
  * @version xxx
@@ -15,11 +10,10 @@ public class AppBasic {
 
 
     public static void main(String[] args) throws InterruptedException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
-        System.out.println( format.format(new Date(runtimeMXBean.getStartTime())));
+        long start = System.currentTimeMillis();
+        System.out.println(start);
         Thread.sleep(5000);
-        System.out.println( format.format(new Date(runtimeMXBean.getStartTime())));
+        System.out.println(  System.currentTimeMillis()- start);
     }
 
     public static boolean isBlank(String str) {

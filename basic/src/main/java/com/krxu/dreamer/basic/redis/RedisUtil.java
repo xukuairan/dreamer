@@ -1,6 +1,7 @@
 package com.krxu.dreamer.basic.redis;
 
 import com.krxu.dreamer.redis.RedisConnectFactory;
+import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.ShardedJedis;
 
@@ -36,5 +37,15 @@ public class RedisUtil {
 
     public static void returnShardedJedis(ShardedJedis shardedJedis) {
         redisConnectFactory.returnShardedJedis(shardedJedis);
+    }
+
+    public static Jedis getJedis(){
+        String ip = CONNECTION_URL.split(",")[0].split(":")[0];
+        int port = Integer.valueOf(CONNECTION_URL.split(",")[0].split(":")[1]);
+        return new Jedis(ip, port);
+    }
+
+    public static void closeJedis(Jedis jedis){
+        jedis.close();
     }
 }

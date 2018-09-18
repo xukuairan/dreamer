@@ -1,6 +1,7 @@
 package com.krxu.dreamer.basic.redis;
 
 import lombok.extern.log4j.Log4j;
+import org.junit.Test;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Response;
@@ -15,7 +16,7 @@ import java.util.concurrent.Executors;
  * @author Administrator
  * @version [版本号]
  * @date 2018/8/28
- * @description redis的事务,实现抢购
+ * @description redis的事务, 实现抢购
  */
 @Log4j
 public class RedisAffair {
@@ -25,7 +26,8 @@ public class RedisAffair {
     private static final String SUCCESS_USER_KEY = "1:success_user";
     private static final String SALE_DETAIL_KEY = "1:sale_detail";
 
-    private static JedisPool pool ;
+    private static JedisPool pool;
+
     static {
         //初始化抢购数据
         pool = new JedisPool(REDIS_HOST, REDIS_PORT);
@@ -35,7 +37,8 @@ public class RedisAffair {
         pool.returnResource(jedis);
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    @Test
+    public void test() {
         log.info("****************************************");
         Jedis jedis = pool.getResource();
         String wk = jedis.get(NUM_WATCH_KEY);
@@ -44,7 +47,7 @@ public class RedisAffair {
         log.info("****************************************");
 
         ExecutorService executor = Executors.newFixedThreadPool(100);
-        for(int i = 0 ; i < 200 ; i ++){
+        for (int i = 0; i < 200; i++) {
             executor.execute(new Task("USER_" + i));
         }
         executor.shutdown();
@@ -54,7 +57,7 @@ public class RedisAffair {
     /**
      * 抢购任务
      */
-    private static class Task implements Runnable{
+    private static class Task implements Runnable {
         private String user;
 
         public Task(String userName) {
@@ -66,13 +69,13 @@ public class RedisAffair {
             int num = new Random().nextInt(3) + 1;
 
             Jedis jedis = pool.getResource();
-            try{
+            try {
                 //WATCH命令的作用只是当被监控的键值被修改后阻止之后一个事务的执行
                 jedis.watch(NUM_WATCH_KEY);
                 Long surplus = Long.valueOf(jedis.get(NUM_WATCH_KEY));
 
                 //就算没有满足超卖条件，事务内有线程抢购成功修改了剩余值导致该线程事务失败，不会导致超卖
-                if(num > surplus){
+                if (num > surplus) {
                     log.info("用户：" + user + "下单:" + num + ",剩余:" + surplus);
                     return;
                 }
@@ -88,9 +91,9 @@ public class RedisAffair {
                 if (list != null && !list.isEmpty()) {
                     log.info("用户：" + user + "抢购成功:" + num + ",剩余:" + response.get());
                 }
-            }catch (Exception ex){
+            } catch (Exception ex) {
                 log.error(ex.getMessage(), ex);
-            }finally {
+            } finally {
                 pool.returnResource(jedis);
             }
         }

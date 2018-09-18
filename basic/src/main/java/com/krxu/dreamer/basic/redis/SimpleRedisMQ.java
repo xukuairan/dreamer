@@ -1,8 +1,10 @@
 package com.krxu.dreamer.basic.redis;
 
 import lombok.extern.log4j.Log4j;
+import org.junit.Test;
 import redis.clients.jedis.ShardedJedis;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -12,16 +14,17 @@ import java.util.concurrent.TimeUnit;
  * @description redis消息队列模式
  */
 @Log4j
-public class PubSub {
+public class SimpleRedisMQ {
     public static final String MESSAGE_KEY = "message:queue";
 
-    public static void main(String[] args) throws InterruptedException {
+    @Test
+    public  void test() throws InterruptedException {
         Thread producer = new Producer("producer");
         Thread customer = new Customer("customer");
 
         producer.start();
         Thread.sleep(5000);
-        //customer.start();
+        customer.start();
     }
 
     /**
@@ -68,11 +71,9 @@ public class PubSub {
         @Override
         public void run() {
             while (true) {
-                String message = jedis.rpop(MESSAGE_KEY);
-                if(message != null) {
-                    count++;
-                    log.info(customerName + " 正在处理消息,消息内容是: " + message + " 这是第" + count + "条");
-                }
+                String messages = jedis.rpop(MESSAGE_KEY);
+                count++;
+                log.info(customerName + " 正在处理消息,消息内容是: " + messages + " 这是第" + count + "条");
             }
         }
     }
