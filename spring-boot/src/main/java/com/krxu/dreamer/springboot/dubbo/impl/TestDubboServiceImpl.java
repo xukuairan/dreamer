@@ -3,6 +3,7 @@ package com.krxu.dreamer.springboot.dubbo.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.krxu.dreamer.springboot.dubbo.TestDubboService;
 
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -17,5 +18,10 @@ public class TestDubboServiceImpl implements TestDubboService {
     @Override
     public String getID() {
         return UUID.randomUUID().toString();
+    }
+
+    @Override
+    public int getIntId() {
+        return new Random().nextInt();
     }
 }

@@ -9,4 +9,6 @@ package com.krxu.dreamer.springboot.dubbo;
 public interface TestDubboService {
 
     String getID();
+
+    int getIntId();
 }

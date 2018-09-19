@@ -11,7 +11,6 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
  * @date 2018/9/18
  * @description [添加描述]
  */
-
 @SpringBootApplication
 @ServletComponentScan
 public class AppStarter extends SpringBootServletInitializer {
