@@ -2,6 +2,8 @@ package com.krxu.dreamer.springboot.controller;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author maywin
  * @version [版本号]
@@ -9,7 +11,7 @@ import lombok.Data;
  * @description [添加描述]
  */
 @Data
-public class TestVO {
+public class TestVO implements Serializable {
     private int id ;
     private String uid;
     private String dId;
