@@ -18,6 +18,7 @@
         <module>spring-dubbo</module>
         <module>jieba</module>
         <module>spring-boot</module>
+        <module>spring-cloud</module>
     </modules>
 
     <properties>
