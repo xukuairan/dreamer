@@ -18,6 +18,7 @@
         <module>spring-dubbo</module>
         <module>jieba</module>
         <module>spring-boot</module>
+        <module>spring-cloud</module>
     </modules>
 
     <properties>
@@ -35,7 +36,7 @@
         <guava_version>18.0</guava_version>
         <commons-pool_version>1.6</commons-pool_version>
         <commons-logging_version>1.2</commons-logging_version>
-        <commons-dbcp_version>1.2.2</commons-dbcp_version>
+        <commons-dbcp_version>1.3</commons-dbcp_version>
         <protostuff_version>1.0.8</protostuff_version>
         <objenesis_version>2.2</objenesis_version>
         <dom4j_version>1.6.1</dom4j_version>
