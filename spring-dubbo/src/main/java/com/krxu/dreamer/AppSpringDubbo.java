@@ -29,6 +29,7 @@ public class AppSpringDubbo {
 
         while (true){
             Thread.sleep(5000);
+            System.out.println("while true");
         }
     }
 

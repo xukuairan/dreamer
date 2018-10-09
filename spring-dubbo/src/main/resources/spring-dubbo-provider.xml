@@ -11,7 +11,9 @@
     <dubbo:protocol name="dubbo" port="${dubbo_port}"/>
 
     <!-- 提供接口	 -->
-    <dubbo:service interface="com.krxu.dreamer.api.ServiceApi" ref="serviceApi" version="${dubbo_provider_version}"/>
+    <dubbo:service interface="com.krxu.dreamer.api.ServiceApi" ref="serviceApi" version="${dubbo_provider_serviceApi_version}"/>
     <bean id="serviceApi" class="com.krxu.dreamer.impl.ServiceApiImpl" />
 
+    <dubbo:service interface="com.krxu.dreamer.api.ServiceApi2" ref="serviceApi2" version="${dubbo_provider_serviceApi2_version}"/>
+    <bean id="serviceApi2" class="com.krxu.dreamer.impl.ServiceApi2Impl" />
 </beans>

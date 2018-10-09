@@ -1,5 +1,9 @@
 package com.krxu.dreamer.basic;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * @author xukuairan
  * @version xxx
@@ -9,26 +13,7 @@ package com.krxu.dreamer.basic;
 public class AppBasic {
 
 
-    public static void main(String[] args) throws InterruptedException {
-        long start = System.currentTimeMillis();
-        System.out.println(start);
-        Thread.sleep(5000);
-        System.out.println(  System.currentTimeMillis()- start);
-    }
-
-    public static boolean isBlank(String str) {
-        int strLen;
-        if (str != null && (strLen = str.length()) != 0) {
-            for(int i = 0; i < strLen; ++i) {
-                if (!Character.isWhitespace(str.charAt(i))) {
-                    return false;
-                }
-            }
-
-            return true;
-        } else {
-            return true;
-        }
+    public static void main(String[] args) throws ParseException {
     }
 
 }
